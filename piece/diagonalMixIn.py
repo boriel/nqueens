@@ -21,5 +21,6 @@ class DiagonalMixIn(Piece):
             while (self.movementLimit is None or count < self.movementLimit) and pos.go(direction) in self.board:
                 pos = pos.go(direction)
                 result.add(pos)
+                count += 1
 
         return result

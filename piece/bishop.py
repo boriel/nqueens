@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from .diagonalMixIn import DiagonalMixIn
+from .diagonalmixin import DiagonalMixIn
 
 class Bishop(DiagonalMixIn):
     """ Implements the Bishop class

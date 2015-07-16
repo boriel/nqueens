@@ -3,6 +3,7 @@
 from unittest import TestCase
 
 from board import Board
+from position import Position
 
 
 class TestBoard(TestCase):
@@ -36,3 +37,10 @@ class TestBoard(TestCase):
         c = {Board(5, 5)}
         c.add(Board(5, 5))
         self.assertEqual(len(c), 1)
+
+    def test__contains__(self):
+        M, N = 5, 7
+        board = Board(M, N)
+        self.assertIn(Position(M - 1, N - 1), board)
+        self.assertNotIn(Position(-1, -1), board)
+        self.assertNotIn(Position(M, N), board)

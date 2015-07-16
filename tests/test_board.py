@@ -4,16 +4,18 @@ from unittest import TestCase
 
 from board import Board
 from position import Position
+from piece import Rook
 
 
 class TestBoard(TestCase):
+    def setUp(self):
+        self.board = Board(5, 7)
+
     def test_n_rows(self):
-        board = Board(5, 7)
-        self.assertEqual(board.n_rows, 5)
+        self.assertEqual(self.board.n_rows, 5)
 
     def test_n_cols(self):
-        board = Board(5, 7)
-        self.assertEqual(board.n_cols, 7)
+        self.assertEqual(self.board.n_cols, 7)
 
     def test_repr(self):
         board = Board(0, 0)
@@ -44,3 +46,21 @@ class TestBoard(TestCase):
         self.assertIn(Position(M - 1, N - 1), board)
         self.assertNotIn(Position(-1, -1), board)
         self.assertNotIn(Position(M, N), board)
+
+    def test_place(self):
+        self.board.place(Rook, Position(3, 4))
+        self.assertIsInstance(self.board[3][4], Rook)
+
+    def test_place_at(self):
+        self.board.place_at(Rook, 3, 4)
+        self.assertIsInstance(self.board[3][4], Rook)
+
+    def test_place_out_of_range(self):
+        self.assertRaises(AssertionError, self.board.place, Rook, Position(7, 4))
+
+    def test_place_is_empty(self):
+        self.board.place_at(Rook, 3, 2)
+        self.assertRaises(AssertionError, self.board.place, list, Position(3, 2))
+
+    def test_place_is_subclass(self):
+        self.assertRaises(AssertionError, self.board.place, list, Position(3, 2))

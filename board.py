@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from singleton import Singleton
+from piece import Piece
+from position import Position
+
 
 @Singleton
 class EmptySquare:
@@ -52,3 +55,30 @@ class Board:
         :return: Whether this position falls within the board range or not
         """
         return 0 <= pos.col < self.n_cols and 0 <= pos.row < self.n_rows
+
+    def place(self, piece_type, position):
+        """ Places a *new* piece instance at the given position.
+        Requires the location to be free.
+        Piece type must be a subclass of Piece.
+
+        :param piece: a piece type (Rook, Queen, Bishop, King, Knight). Must be subclass of Piece.
+        :param position: a Position instance
+        """
+        assert isinstance(position, Position)
+        assert position in self, "%s of of Range. Board dimensions are %ix%i" % (position, self.n_rows, self.n_cols)
+        assert self[position.row][position.col] is Empty, "There is already a piece (%s) at %s" % \
+                                                          (piece_type.__name__, position)
+        assert issubclass(piece_type, Piece), "Piece Type must be subclass of Piece"
+
+        self[position.row][position.col] = piece_type(position, self)
+
+    def place_at(self, piece_type, row, col):
+        """ Like above, but using row, col parameters for commodity.
+        Requires the location to be free.
+        Piece type must be a subclass of Piece.
+
+        :param piece: a piece type (Rook, Queen, Bishop, King, Knight). Must be subclass of Piece.
+        :param row: Row coordinate
+        :param col: Column coordinate
+        """
+        self.place(piece_type, Position(row, col))

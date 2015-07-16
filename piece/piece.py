@@ -10,16 +10,25 @@ from abc import abstractmethod
 from abc import abstractproperty
 from collections import namedtuple
 
-Position = namedtuple('Position', ('col', 'row'))
+
+Position = namedtuple('Position', ('row', 'col'))
 
 
 class Piece(metaclass=ABCMeta):
     """ Implements the Abstract Base Class for any piece
     """
     def __init__(self, position, board):
-        assert isinstance(position, Position)
         self.position = position
         self.board = board
+
+    @property
+    def position(self):
+        return self._position
+
+    @position.setter
+    def position(self, position):
+        assert isinstance(position, Position)
+        self._position = position
 
     @abstractmethod
     def __repr__(self):
@@ -34,3 +43,11 @@ class Piece(metaclass=ABCMeta):
 
     def can_attack(self, position):
         return position in self.attacked_positions
+
+    def move_to(self, row, col):
+        """ Places the piece in the new location, checking it is in range
+        :param row: Board row (0..max_row - 1)
+        :param col: Board col (0..max_col - 1)
+        """
+        self.position = Position(row, col)
+

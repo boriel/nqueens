@@ -3,6 +3,7 @@
 
 from .diagonalmixin import DiagonalMixIn
 
+
 class Bishop(DiagonalMixIn):
     """ Implements the Bishop class
     """

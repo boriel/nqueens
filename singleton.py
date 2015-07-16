@@ -2,9 +2,11 @@
 # -*- coding: utf-8 -*-
 
 
-class singleton:
+class Singleton:
     """ Provides a simple singleton decorator.
+    NOTE: First Letter capitalized to allow
     """
+
     def __init__(self, cls):
         self.cls = cls
         self.instance = None

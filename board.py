@@ -20,12 +20,10 @@ class Board:
     """ Defines a M x N (Rows x Cols) checkboard.
     """
     def __init__(self, rows, cols):
-        self.rows = rows
-        self.cols = cols
-        self.squares = [[Empty] * self.cols for i in range(self.rows)]
+        self.squares = [[Empty] * cols for i in range(rows)]
 
     def __str__(self):
-        line = '+' + '-+' * self.cols + '\n'
+        line = '+' + '-+' * self.n_cols + '\n'
         return line + line.join('|' + '|'.join(str(square) for square in row) + '|\n' for row in self.squares) + line
 
     def __repr__(self):
@@ -36,3 +34,21 @@ class Board:
 
     def __getitem__(self, key):
         return self.squares[key]
+
+    def __eq__(self, other):
+        return repr(self) == repr(other)
+
+    @property
+    def n_rows(self):
+        return len(self.squares)
+
+    @property
+    def n_cols(self):
+        return len(self.squares[0])
+
+    def __contains__(self, pos):
+        """
+        :param pos: piece.piece.Position instance (row, col)
+        :return: Whether this position falls within the board range or not
+        """
+        return 0 <= pos.col < self.n_cols and 0 <= pos.row < self.n_rows

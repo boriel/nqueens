@@ -4,6 +4,7 @@ from unittest import TestCase
 from position import Position
 from position import Direction
 
+
 class TestPosition(TestCase):
     def setUp(self):
         self.pos = Position(3, 3)
@@ -70,3 +71,12 @@ class TestPosition(TestCase):
                 Position(4, 4)
             ]
         )
+
+    def test__hash__(self):
+        """ Checks the __hash__ magic function is taking into account
+        only the position.
+        """
+        c = {self.pos}
+        self.assertIn(self.pos, c)
+        c.add(Position(3, 3))
+        self.assertEqual(len(c), 1)

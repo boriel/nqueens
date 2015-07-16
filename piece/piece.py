@@ -8,10 +8,8 @@ __doc__ = """ Defines a generic Abstract Base Class for every piece.
 from abc import ABCMeta
 from abc import abstractmethod
 from abc import abstractproperty
-from collections import namedtuple
 
-
-Position = namedtuple('Position', ('row', 'col'))
+from position import Position
 
 
 class Piece(metaclass=ABCMeta):

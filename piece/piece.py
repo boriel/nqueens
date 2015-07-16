@@ -7,7 +7,6 @@ __doc__ = """ Defines a generic Abstract Base Class for every piece.
 
 from abc import ABCMeta
 from abc import abstractmethod
-from abc import abstractproperty
 
 from position import Position
 
@@ -32,7 +31,8 @@ class Piece(metaclass=ABCMeta):
     def __repr__(self):
         pass
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def attacked_positions(self):
         """
         :return: A python set of Position instances reachable by this piece.

@@ -1,16 +1,20 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+## The N-Pieces Chess Challenge ##
 
-### What is this repository for? ###
+This repo contains the source code for the N-Pieces Chess Challenge problem.
+The challenge is to put N pieces on an MxN chessboard so no piece is attacked by any other.
+All possible combinations must be obtained.
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* Version 1.0
+* Language: Python 3.x
 
-### The N-pieces Chess Challenge ###
+## Installation and Usage ##
 
-This program tries to solve the N-pieces problem. All
+Other than a python 3.x interpreter, nothing extra is required in your system.
+To run it just type:
+
+ 
 
 * Summary of set up
 * Configuration
@@ -19,12 +23,12 @@ This program tries to solve the N-pieces problem. All
 * How to run tests
 * Deployment instructions
 
-### Contribution guidelines ###
+### Code ###
 
-* Writing tests
-* Code review
-* Other guidelines
+## Code Testing ##
+
+Test suite used is nose compatible. All test are located within the tests/ folder.
+Every class has its own tests to ensure minimal functionality.
 
 ### Who do I talk to? ###
-
-by [Jose Rodriguez](http://boriel.com) ([@boriel](http://www.twitter.com/boriel))
+[Jose Rodriguez](http://boriel.com) ([@boriel](http://www.twitter.com/boriel))

@@ -14,21 +14,25 @@ All possible combinations must be obtained.
 Other than a python 3.x interpreter, nothing extra is required in your system.
 To run it just type:
 
- 
+```
+#!bash
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+python main.py 
+```
+
+
 
 ### Code ###
+
+## Design ##
+
 
 ## Code Testing ##
 
 Test suite used is nose compatible. All test are located within the tests/ folder.
 Every class has its own tests to ensure minimal functionality.
+A coverage report is also included in the folder /tests/coverage (open index.html with a 
+web browser). Coverage is nearly 100%.
 
 ### Who do I talk to? ###
 [Jose Rodriguez](http://boriel.com) ([@boriel](http://www.twitter.com/boriel))

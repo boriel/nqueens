@@ -110,3 +110,11 @@ class Board:
             result.place(piece.__class__, piece.position)
 
         return result
+
+    def at(self, position):
+        """ Similar to board[i][j] but using position objects. Use place() or place_at()
+        to set a value.
+        :param position: A Position instance
+        :return: the board cell content at the given row, col
+        """
+        return self[position.row][position.col]

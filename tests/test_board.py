@@ -84,3 +84,14 @@ class TestBoard(TestCase):
         self.board.place_at(Queen, 1, 1)
         self.board.place_at(Knight, 2, 4)
         self.assertSetEqual(self.board.attacked, set.union(*[x.attacked_positions for x in self.board.pieces]))
+
+    def test_at(self):
+        self.board.place_at(Rook, 3, 2)
+        self.board.place_at(Queen, 1, 1)
+        self.board.place_at(Knight, 2, 4)
+
+        self.assertEqual(self.board.at(Position(3, 2)), self.board[3][2])
+        self.assertEqual(self.board.at(Position(1, 1)), self.board[1][1])
+        self.assertEqual(self.board.at(Position(2, 4)), self.board[2][4])
+
+        self.assertEqual(self.board.at(Position(0, 2)), self.board[0][2])

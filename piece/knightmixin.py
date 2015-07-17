@@ -15,8 +15,13 @@ class KnightMixIn(Piece):
 
         for dirA in (Direction.North, Direction.South, Direction.East, Direction.West):
             posA = self.position.go(dirA).go(dirA)
-            for dirB in (Direction.North, Direction.South, Direction.East, Direction.West):
-                posB = posA.bo(dirB)
+            for dirB in (
+                    Direction.North,
+                    Direction.South
+            ) if dirA in (Direction.East, Direction.West) else (
+                    Direction.East, Direction.West
+            ):
+                posB = posA.go(dirB)
                 if posB in self.board:
                     result.add(posB)
 

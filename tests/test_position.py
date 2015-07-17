@@ -80,3 +80,7 @@ class TestPosition(TestCase):
         self.assertIn(self.pos, c)
         c.add(Position(3, 3))
         self.assertEqual(len(c), 1)
+
+    def test__lt__(self):
+        A = [Position(i, j) for i in range(5) for j in range(5)]
+        self.assertListEqual(A, sorted(A[::-1]))

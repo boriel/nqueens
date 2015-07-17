@@ -29,6 +29,9 @@ class Position:
     def __eq__(self, other):
         return self.row == other.row and self.col == other.col
 
+    def __lt__(self, other):
+        return self.row < other.row or (self.row == other.row and self.col < other.col)
+
     def __hash__(self):
         return hash((self.row, self.col))
 

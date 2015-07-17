@@ -14,6 +14,12 @@ All possible combinations must be obtained.
 Other than a python 3.x interpreter, nothing extra is required in your system.
 To run it just type:
 
+```
+#!bash
+
+python main.py 
+```
+
  
 
 * Summary of set up

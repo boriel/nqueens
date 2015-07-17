@@ -25,6 +25,7 @@ class Board:
     def __init__(self, rows, cols):
         self.squares = [[Empty] * cols for _ in range(rows)]
         self._pieces = []
+        self._attacked = set()
 
     def __str__(self):
         line = '+' + '-+' * self.n_cols + '\n'
@@ -57,6 +58,13 @@ class Board:
         """
         return list(self._pieces)
 
+    @property
+    def attacked(self):
+        """
+        :return: a list of current attacked squares
+        """
+        return self._attacked
+
     def __contains__(self, pos):
         """
         :param pos: piece.piece.Position instance (row, col)
@@ -80,6 +88,7 @@ class Board:
 
         self[position.row][position.col] = piece_type(position, self)
         self._pieces.append(self[position.row][position.col])
+        self._attacked = set().union(*[x.attacked_positions for x in self.pieces])  # Update attacked squares
 
     def place_at(self, piece_type, row, col):
         """ Like above, but using row, col parameters for commodity.
@@ -91,3 +100,13 @@ class Board:
         :param col: Column coordinate
         """
         self.place(piece_type, Position(row, col))
+
+    def copy(self):
+        """
+        :return: A copy of this instance
+        """
+        result = self.__class__(self.n_rows, self.n_cols)
+        for piece in self.pieces:
+            result.place(piece.__class__, piece.position)
+
+        return result

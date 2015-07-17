@@ -70,3 +70,17 @@ class TestBoard(TestCase):
         self.board.place_at(Queen, 1, 1)
         self.board.place_at(Knight, 2, 4)
         self.assertListEqual([str(x) for x in self.board.pieces], ['R', 'Q', 'N'])
+
+    def test_copy(self):
+        self.board.place_at(Rook, 3, 2)
+        self.board.place_at(Queen, 1, 1)
+        self.board.place_at(Knight, 2, 4)
+        tmp = self.board.copy()
+        self.assertEqual(self.board, tmp)
+        self.assertIsNot(self.board, tmp)
+
+    def test_attacked(self):
+        self.board.place_at(Rook, 3, 2)
+        self.board.place_at(Queen, 1, 1)
+        self.board.place_at(Knight, 2, 4)
+        self.assertSetEqual(self.board.attacked, set.union(*[x.attacked_positions for x in self.board.pieces]))

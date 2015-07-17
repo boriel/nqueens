@@ -4,7 +4,7 @@
 
 class Singleton:
     """ Provides a simple singleton decorator.
-    NOTE: First Letter capitalized to allow
+    NOTE: First Letter capitalized to follow pycharm strict PEP-8 convention
     """
 
     def __init__(self, cls):

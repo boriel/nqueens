@@ -8,10 +8,6 @@ from position import Position
 M, N = 3, 3
 pieces = [King, King, Rook]
 
-board = Board(M, N)
-SOLUTIONS = {}
-CHECKED = {}
-
 
 class PositionSequencer:
     """ This class will act as a generator yielding all Position (instances) of the
@@ -67,7 +63,10 @@ def place_pieces(board, pieces, row=0, col=0):
             yield from place_pieces(board_, pieces[1:], next_row, next_col)
 
 
-if __name__ == '__main__':
+def main(*args, **kwargs):
     for board in place_pieces(Board(M, N), [King, King, Rook]):
         print(board)
 
+
+if __name__ == '__main__':
+    main()

@@ -44,16 +44,30 @@ class PositionSequencer:
 
 
 def place_pieces(board, pieces, row=0, col=0):
+    occupied = {piece.position for piece in board.pieces}
+
     for pos in PositionSequencer(board, row, col):
-        if board[pos.row][pos.col] is not Empty or pos in board.attacked:
+        if board.at(pos) is not Empty or pos in board.attacked:
             continue
 
         board_ = board.copy()
-        current_pieces = board_.pieces
-        board_.place_at(pieces[0], row=i, col=j)
-        latest_piece = board_[i][j]
+        board_.place(pieces[0], pos)
+
+        if occupied.intersection(board_.at(pos).attacked_positions):
+            continue  # not valid. The new piece is attacking previous ones
 
         if len(pieces) == 1:
-           yield board  # This is a solution
+            yield board_  # This is a solution
+        else:
+            if pieces[0] is pieces[1]:  # The same type of piece?
+                next_row, next_col = pos.row, pos.col
+            else:
+                next_row, next_col = 0, 0
 
+            yield from place_pieces(board_, pieces[1:], next_row, next_col)
+
+
+if __name__ == '__main__':
+    for board in place_pieces(Board(M, N), [King, King, Rook]):
+        print(board)
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
+__all__ = ['Piece']
 __doc__ = """ Defines a generic Abstract Base Class for every piece.
           """
 

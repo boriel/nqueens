@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+__all__ = ['Queen']
 __doc__ = "I miss you Freddy"
 
 

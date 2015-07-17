@@ -4,7 +4,7 @@ from unittest import TestCase
 
 from board import Board
 from position import Position
-from piece import Rook
+from piece import Rook, Queen, Knight
 
 
 class TestBoard(TestCase):
@@ -64,3 +64,9 @@ class TestBoard(TestCase):
 
     def test_place_is_subclass(self):
         self.assertRaises(AssertionError, self.board.place, list, Position(3, 2))
+
+    def test_pieces(self):
+        self.board.place_at(Rook, 3, 2)
+        self.board.place_at(Queen, 1, 1)
+        self.board.place_at(Knight, 2, 4)
+        self.assertListEqual([str(x) for x in self.board.pieces], ['R', 'Q', 'N'])

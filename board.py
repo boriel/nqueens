@@ -23,7 +23,8 @@ class Board:
     """ Defines a M x N (Rows x Cols) checkboard.
     """
     def __init__(self, rows, cols):
-        self.squares = [[Empty] * cols for i in range(rows)]
+        self.squares = [[Empty] * cols for _ in range(rows)]
+        self._pieces = []
 
     def __str__(self):
         line = '+' + '-+' * self.n_cols + '\n'
@@ -49,6 +50,13 @@ class Board:
     def n_cols(self):
         return len(self.squares[0])
 
+    @property
+    def pieces(self):
+        """
+        :return: A list of pieces on this board
+        """
+        return list(self._pieces)
+
     def __contains__(self, pos):
         """
         :param pos: piece.piece.Position instance (row, col)
@@ -61,7 +69,7 @@ class Board:
         Requires the location to be free.
         Piece type must be a subclass of Piece.
 
-        :param piece: a piece type (Rook, Queen, Bishop, King, Knight). Must be subclass of Piece.
+        :param piece_type: a piece type (Rook, Queen, Bishop, King, Knight). Must be subclass of Piece.
         :param position: a Position instance
         """
         assert isinstance(position, Position)
@@ -71,13 +79,14 @@ class Board:
         assert issubclass(piece_type, Piece), "Piece Type must be subclass of Piece"
 
         self[position.row][position.col] = piece_type(position, self)
+        self._pieces.append(self[position.row][position.col])
 
     def place_at(self, piece_type, row, col):
         """ Like above, but using row, col parameters for commodity.
         Requires the location to be free.
         Piece type must be a subclass of Piece.
 
-        :param piece: a piece type (Rook, Queen, Bishop, King, Knight). Must be subclass of Piece.
+        :param piece_type: a piece type (Rook, Queen, Bishop, King, Knight). Must be subclass of Piece.
         :param row: Row coordinate
         :param col: Column coordinate
         """

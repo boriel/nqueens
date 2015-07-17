@@ -10,6 +10,7 @@ __doc__ = """ Implements the Amazon chess piece (not used in this problem)
 from .knightmixin import KnightMixIn
 from .queen import Queen
 
+
 class Amazon(Queen, KnightMixIn):
     """ An Amazon is Queen riding a Horse (Knight)
     """

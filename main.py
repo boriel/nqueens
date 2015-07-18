@@ -55,6 +55,19 @@ class ValidBoards:
         yield from self._valid_boards(self.board, self.piece_types, 0, 0)
 
     def _valid_boards(self, board, pieces, row, col):
+        """ Recursive function (generator) which places a piece and then tries to put
+        the remaining ones. When no more pieces remaining we've found a valid solution.
+
+        WARNING: To avoid duplicated solutions, this algorithm *requires* the list of pieces to be
+                 grouped, that is, for example: pieces parameter should be either [Rook, Rook, Bishop]
+                 or [Bishop, Rook, Rook] but not [Rook, Bishop, Rook].
+
+        :param board: a Board(M, N) instance
+        :param pieces: a list of Piece subclasses (Knight, King, Queen, Rook, Bishop). They can repeat. (see WARNING)
+        :param row: row to start searching for valid positions.
+        :param col: column to start searching for valid positions.
+        :yields: all valid board configurations.
+        """
         occupied = {piece.position for piece in board.pieces}
 
         for pos in PositionSequencer(board, row, col):

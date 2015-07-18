@@ -19,20 +19,39 @@ To run it just type:
 
 python main.py 
 ```
+Then you can type a sentence to specify the configuration to solve, like:
+_3x3 Board containing 2 Kings and 1 Rook._
 
-
+The program does a (very) naive parsing to understand the board size and pieces in plain English.
+You can also read from standard input.
 
 ### Code ###
 
-## Design ##
+#### Design ####
 
+* The folder testing/ contains the TDD cases. Read below.
+* The folder piece/ is a python package containing the piece class hierarchy.
 
-## Code Testing ##
+#### Classes ####
+
+* The **Piece** class is the an Abstract Base Class (ABC) from which all other classes derive.
+* **DiagonalMixIn** implements the diagonal movement (Queen, Bishop). 
+This movement can be limited to 1 step (for the King).
+* **HoriVertMixIn** implements the horizontal movement (Queen, Rook).
+This movement can be limited to 1 step (for the King).
+* **KnightMixIn** implements the knight movement (Knight and a fictional piece, Amazon, not used here).
+
+### Algorithm ###
+
+The algorithm does a recursive deep-first iteration, and it's encapsulated within an iterable
+class for better legibility.
+
+### Code Testing ###
 
 Test suite used is nose compatible. All test are located within the tests/ folder.
 Every class has its own tests to ensure minimal functionality.
 A coverage report is also included in the folder /tests/coverage (open index.html with a 
-web browser). Coverage is nearly 100%.
+web browser). Coverage is nearly 100% (classes in main.py not included).
 
 ### Who do I talk to? ###
 [Jose Rodriguez](http://boriel.com) ([@boriel](http://www.twitter.com/boriel))

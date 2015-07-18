@@ -41,6 +41,8 @@ This movement can be limited to 1 step (for the King).
 This movement can be limited to 1 step (for the King).
 * **KnightMixIn** implements the knight movement (Knight and a fictional piece, Amazon, not used here).
 
+![class_diagram.jpg](https://bitbucket.org/repo/rzroxR/images/4135032722-class_diagram.jpg)
+
 ### Algorithm ###
 
 The algorithm does a recursive deep-first iteration, and it's encapsulated within an iterable

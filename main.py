@@ -5,8 +5,7 @@ from board import Board, Empty
 from piece import King, Queen, Rook, Bishop, Knight, Piece
 from position import Position
 
-M, N = 3, 3
-pieces = [King, King, Rook]
+import re
 
 
 class PositionSequencer:
@@ -78,10 +77,51 @@ class ValidBoards:
                 yield from self._valid_boards(board_, pieces[1:], next_row, next_col)
 
 
-def main(*args, **kwargs):
-    for board in ValidBoards(Board(M, N), [King, King, Rook]):
+class InputParser:
+    """ Implements a (very) simple parser using Regular Expressions,
+    to parse sentences like "4×4 board containing 2 Rooks and 4 Knights"
+    """
+    piece_names = {
+        'king': King,
+        'queen': Queen,
+        'rook': Rook,
+        'knight': Knight,
+        'bishop': Bishop
+    }
+
+    class SizeNotSpecifiedError(Exception):
+        def __str__(self):
+            return "Board size not specified"
+
+    class PiecesNotSpecifiedError(Exception):
+        def __str__(self):
+            return "No pieces specified"
+
+    def __init__(self, string):
+        """
+        :param string: String to parse
+        """
+        string = string.lower()
+
+        size_RE = re.compile(r'(\d+x\d+)[ \t]board')
+        parse_size = size_RE.search(string)
+        if parse_size is None:
+            raise InputParser.SizeNotSpecifiedError
+        self.M, self.N = tuple(int(x) for x in parse_size.groups()[0].split('x'))
+        pieces_RE = re.compile(r'(\d+[ \t]+(?:%s))' %
+                               '|'.join(x.__name__ for x in self.piece_names.values()), re.IGNORECASE)
+        pieces_list = pieces_RE.findall(string)
+        if not pieces_list:
+            raise InputParser.PiecesNotSpecifiedError
+
+        self.pieces_list = [self.piece_names[piece] for n, piece_type in [re.split('[ \t+]', x) for x in pieces_list]
+                            for piece in int(n) * [piece_type]]
+
+def main():
+    parser = InputParser(input())
+    for board in ValidBoards(Board(parser.M, parser.N), parser.pieces_list):
         print(board)
 
-
+# Example input: 3x3 board containing 2 Kings and 1 Rook.
 if __name__ == '__main__':
     main()
